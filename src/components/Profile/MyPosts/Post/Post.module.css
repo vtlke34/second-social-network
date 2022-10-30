@@ -1,0 +1,14 @@
+.post {
+    padding: 10px 0;
+}
+
+.likes {
+    background-color: indianred;
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 2px;
+}

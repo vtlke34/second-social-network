@@ -3,18 +3,24 @@ import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import Messages from './components/Messages/Messages';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Header></Header>
+      <BrowserRouter>
 
-      <div className='flex-container'>
-        <Navbar></Navbar>
-        {/* <Profile></Profile> */}
-        <Messages></Messages>
+        <Header></Header>
 
-      </div>
+        <div className='flex-container'>
+          <Navbar></Navbar>
+          <Routes>
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/messages/*' element={<Messages />} />
+          </Routes>
+        </div>
+
+      </BrowserRouter>
     </div>
   );
 }

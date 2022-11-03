@@ -1,0 +1,18 @@
+.newMessage {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.text {
+    display: block;
+    min-height: 50px;
+    width: 100%;
+    resize: none;
+    padding: 5px;
+
+}
+
+.button {
+    height: 50px;
+    width: 100px;
+}

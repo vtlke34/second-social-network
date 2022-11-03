@@ -100,8 +100,10 @@ h2 {
 .App {
   width: 1200px;
   margin: 0 auto;
+  height: 100%;
 }
 
 .flex-container {
   display: flex;
+  height: 100%;
 }

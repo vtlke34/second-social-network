@@ -1,12 +1,26 @@
 .Navbar {
-    background-color: darkgray;
-    padding: 10px 30px;
+    background-color: lightgray;
+    padding: 15px 30px;
+    height: 100%;
 }
 
-a {
+.link {
     display: block;
+    margin-bottom: 10px;
+    color: #282c34;
+}
+
+.link:hover {
+    color: aliceblue;
 }
 
 .active {
-    color: aqua;
+    display: block;
+    margin-bottom: 10px;
+    color: aliceblue;
+    font-weight: bold;
+}
+
+nav {
+    margin-bottom: 100px;
 }

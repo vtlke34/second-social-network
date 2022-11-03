@@ -1,0 +1,31 @@
+.user {
+    border-bottom: 1px solid silver;
+    padding: 10px 5px;
+    color: #282c34;
+    width: 200px;
+    margin-right: 10px;
+    display: block;
+}
+
+.active {
+    background-color: cornflowerblue;
+    border-bottom: 1px solid silver;
+    padding: 10px 5px;
+    color: aliceblue;
+    width: 200px;
+    margin-right: 10px;
+    display: block;
+    font-weight: bold;
+}
+
+.user img,
+.active img {
+    width: 15px;
+    display: inline;
+    border-radius: 7px;
+    margin-right: 5px;
+}
+
+.user:hover {
+    background-color: cornflowerblue;
+}

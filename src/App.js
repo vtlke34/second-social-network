@@ -5,7 +5,7 @@ import Profile from './components/Profile/Profile';
 import Messages from './components/Messages/Messages';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const App = () => {
+const App = (props) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -13,10 +13,10 @@ const App = () => {
         <Header></Header>
 
         <div className='flex-container'>
-          <Navbar></Navbar>
+          <Navbar sidebarData={props.state.sidebar}></Navbar>
           <Routes>
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/messages/*' element={<Messages />} />
+            <Route path='/profile' element={<Profile profileData={props.state.profilePage} />} />
+            <Route path='/messages/*' element={<Messages messagesData={props.state.messagesPage} addMessage={props.addMessage} inputMessage={props.inputMessage} />} />
           </Routes>
         </div>
 

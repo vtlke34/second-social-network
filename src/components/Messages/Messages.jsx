@@ -1,49 +1,26 @@
 import React from "react";
-import { NavLink, Route } from "react-router-dom";
-import style from './Messages.module.css'
-
-const usersData = [
-    { id: 1, name: 'lera' },
-    { id: 2, name: 'alina' },
-    { id: 3, name: 'andrey' },
-    { id: 4, name: 'dima' },
-];
-
-const messageData = [
-    { id: 1, message: "hy, you're idiot" },
-    { id: 2, message: 'i am not idiot!!!' }
-]
-
-const User = (props) => {
-    return (
-        <NavLink to={`${props.id}`} className={style.user}>
-            {props.name}
-        </NavLink>
-    )
-}
-
-const Message = (props) => {
-    return (
-        <div className={style.message}>
-            {props.message}
-        </div>
-    )
-
-
-}
+import style from './Messages.module.css';
+import Message from "./Message/Message";
+import User from "./User/User";
+import NewMessage from "./NewMessage/NewMessage";
 
 const Messages = (props) => {
+
+    const users = props.messagesData.usersData.map(el => <User name={el.name} id={el.id} imgSrc={el.imgSrc} />)
+
+    const messages = props.messagesData.messageData.map(el => <Message message={el.message} name={el.name} imgSrc={el.imgSrc} />)
+
     return (
         <div className={style.Messages}>
-            <div className={style.users}>
-                <User name={usersData[0].name} id={usersData[0].id} />
-                <User name={usersData[1].name} id={usersData[1].id} />
-                <User name={usersData[2].name} id={usersData[2].id} />
-                <User name={usersData[3].name} id={usersData[3].id} />
+            <div className={style.div}>
+                {users}
             </div>
-            <div className={style.dialog}>
-                <Message message={messageData[0].message} />
-                <Message message={messageData[1].message} />
+            <div className={style.div2}>
+                <div className={style.div3} >
+                    {messages}
+                </div>
+
+                <NewMessage addMessage={props.addMessage} inputData={props.messagesData.inputData} inputMessage={props.inputMessage} />
             </div>
         </div>
     )

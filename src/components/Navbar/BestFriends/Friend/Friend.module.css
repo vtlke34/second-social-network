@@ -1,0 +1,10 @@
+.friend {
+    padding-right: 5px;
+    color: #282c34;
+}
+
+.friend img {
+    width: 25px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+}

@@ -5,10 +5,18 @@
     display: flex;
 }
 
-.users {
-    width: 100px;
+.div {
+    border-right: 1px solid silver;
+    margin-right: 10px;
 }
 
-.user {
-    margin-bottom: 10px;
+.div2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.div3 {
+    flex: 1 0 auto;
 }

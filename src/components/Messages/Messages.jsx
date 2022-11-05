@@ -6,9 +6,9 @@ import NewMessage from "./NewMessage/NewMessage";
 
 const Messages = (props) => {
 
-    const users = props.messagesData.usersData.map(el => <User name={el.name} id={el.id} imgSrc={el.imgSrc} />)
+    const users = props.messagesData.usersData.map((el, index) => <User name={el.name} id={el.id} imgSrc={el.imgSrc} key={index} />)
 
-    const messages = props.messagesData.messageData.map(el => <Message message={el.message} name={el.name} imgSrc={el.imgSrc} />)
+    const messages = props.messagesData.messageData.map((el, index) => <Message message={el.message} name={el.name} imgSrc={el.imgSrc} key={index} />)
 
     return (
         <div className={style.Messages}>
@@ -20,7 +20,7 @@ const Messages = (props) => {
                     {messages}
                 </div>
 
-                <NewMessage addMessage={props.addMessage} inputData={props.messagesData.inputData} inputMessage={props.inputMessage} />
+                <NewMessage inputData={props.messagesData.inputData} dispatch={props.dispatch} />
             </div>
         </div>
     )

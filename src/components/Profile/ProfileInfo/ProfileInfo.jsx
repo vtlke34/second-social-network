@@ -8,11 +8,11 @@ const ProfileInfo = () => {
             <div className={style.information}>
                 <img className={style.logo} src='https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg'></img>
                 <div>
-                    <h2 className='name'>Name Name</h2>
-                    <ul className='description'>
-                        <li>City</li>
-                        <li>Age</li>
-                        <li>Education</li>
+                    <h2 className={style.name}>Name Name</h2>
+                    <ul className={style.description}>
+                        <li className={style.descriptionItem}>City:</li>
+                        <li className={style.descriptionItem}>Age:</li>
+                        <li className={style.descriptionItem}>Education:</li>
                     </ul>
                 </div>
             </div>

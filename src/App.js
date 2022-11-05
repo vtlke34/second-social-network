@@ -13,10 +13,23 @@ const App = (props) => {
         <Header></Header>
 
         <div className='flex-container'>
-          <Navbar sidebarData={props.state.sidebar}></Navbar>
+
+          <Navbar sidebarData={props.store.state.sidebar}></Navbar>
+
           <Routes>
-            <Route path='/profile' element={<Profile profileData={props.state.profilePage} />} />
-            <Route path='/messages/*' element={<Messages messagesData={props.state.messagesPage} addMessage={props.addMessage} inputMessage={props.inputMessage} />} />
+
+            <Route path='/profile' element={<Profile
+              profileData={props.store.state.profilePage}
+              dispatch={props.store.dispatch.bind(props.store)}
+            />}
+            />
+
+            <Route path='/messages/*' element={<Messages
+              messagesData={props.store.state.messagesPage}
+              dispatch={props.store.dispatch.bind(props.store)}
+            />}
+            />
+
           </Routes>
         </div>
 

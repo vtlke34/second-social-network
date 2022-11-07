@@ -6,7 +6,11 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 const Profile = (props) => {
     return <div className={style.Profile}>
         <ProfileInfo />
-        <MyPosts state={props.profileData} dispatch={props.dispatch} />
+        <MyPosts
+            store={props.store}
+        // state={props.profileData}
+        // dispatch={props.dispatch}
+        />
     </div>
 }
 

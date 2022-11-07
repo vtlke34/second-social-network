@@ -1,10 +1,11 @@
 import messagesReducer from "./messages-reducer";
 import profileReducer from "./profile-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 let store = {
-    rerender() { console.log('dd') },
+    _rerender() { console.log('dd') },
 
-    state: {
+    _state: {
         messagesPage: {
             usersData: [
                 { id: 1, name: 'lera', imgSrc: 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg' },
@@ -37,16 +38,20 @@ let store = {
         }
     },
 
-
-    dispatch(action) {
-        this.state.messagesPage = messagesReducer(this.state.messagesPage, action)
-        this.state.profilePage = profileReducer(this.state.profilePage, action)
-
-        this.rerender(this.state)
+    getState() {
+        return this._state
     },
 
-    subscriber(observer) {
-        this.rerender = observer
+    dispatch(action) {
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._rerender(this.state)
+    },
+
+    subscribe(observer) {
+        this._rerender = observer
     }
 }
 

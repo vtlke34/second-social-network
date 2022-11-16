@@ -1,28 +1,75 @@
+import { NavLink } from 'react-router-dom'
+import Preloader from '../Common/Preloader'
 import style from './Users.module.css'
 
-const User = (props) => {
-    return (
-        <li>
-            {
-                props.userData.followed
-                    ? <button>follow</button>
-                    : <button>unfollow</button>
-            }
-            <div>
-                <h6>{props.userData.name}</h6>
-                <p>location:{`${props.userData.location.country}, ${props.userData.location.city}`}</p>
-            </div>
-        </li>
-    )
-}
+
+// const Users = (props) => {
+//     if (props.usersData.length == 0) {
+//         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => props.setUsers(response.data.items))
+//     }
+//     return (
+//         <ul className={style.users}>
+//             {props.usersData.map(user => <User
+//                 key={user.id}
+//                 usersData={user}
+//                 follow={props.follow}
+//                 unfollow={props.unfollow}
+//                 setUsers={props.setUsers} />)}
+//         </ul>
+//     )
+// }
 
 
 const Users = (props) => {
-    console.log(props)
+    const pagesCount = Math.ceil(props.totalCount / props.count)
+    const pages = []
+    for (let i = 1; i < pagesCount; i++) {
+        pages.push(i)
+    }
+    let curP = props.page;
+    let curPF = ((curP - 5) < 0) ? 0 : curP - 5;
+    let curPL = curP + 4;
+    let slicedPages = pages.slice(curPF, curPL);
+
     return (
-        <ul>
-            {props.users.map(user => <User userData={user} />)}
-        </ul>
+        <div className={style.users}>
+            <div className={style.pages}>
+                {slicedPages.map(i =>
+                    <span onClick={() => { props.setCurPage(i) }} className={props.page == i ? style.activePage : style.page}>
+                        {i + ' '}
+                    </span>)}
+            </div>
+
+            {props.isFetching === true ?
+                <Preloader />
+                : <ul >
+                    {props.usersData.map(user => {
+                        return (
+                            <li key={user.key} className={style.user}>
+                                <NavLink to={`/profile/${user.id}`}>
+                                    {
+                                        user.photos.small === null
+                                            ? <img className={style.logo} src='https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg' alt="" />
+                                            : <img className={style.logo} src={user.photos.small} alt="" />
+                                    }
+                                </NavLink>
+
+                                <div>
+                                    <h6 className={style.name}>{user.name}</h6>
+                                    {
+                                        user.followed
+                                            ? <button className={style.unfollow} onClick={() => props.unfollow(user.id)}>Unfollow</button>
+                                            : <button className={style.follow} onClick={() => props.follow(user.id)}>Follow</button>
+                                    }
+                                </div>
+                            </li>)
+                    })
+                    }
+                </ul>
+            }
+
+
+        </div>
     )
 }
 

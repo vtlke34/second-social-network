@@ -1,10 +1,10 @@
 import './App.css';
-import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import Messages from './components/Messages/Messages';
 import UsersContainer from './components/Users/UsersContainer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 
 
@@ -13,7 +13,7 @@ const App = (props) => {
     <div className="App">
       <BrowserRouter>
 
-        <Header></Header>
+        <HeaderContainer />
 
         <div className='flex-container'>
 
@@ -25,7 +25,9 @@ const App = (props) => {
 
           <Routes>
 
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile/' element={<ProfileContainer />}>
+              <Route path=':userId' element={<ProfileContainer />} />
+            </Route>
 
             {/* <Route path='/messages/*' element={<Messages
               messagesData={props.store.getState().messagesPage}

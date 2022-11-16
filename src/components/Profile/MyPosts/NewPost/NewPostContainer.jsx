@@ -1,6 +1,6 @@
 import React from "react";
 import style from './NewPost.module.css'
-import { addPostActionCreator, inputPostActionCreator } from "../../../../redux/profile-reducer";
+import { addPost, inputPost } from "../../../../redux/profile-reducer";
 import NewPost from "./NewPost";
 import { connect } from "react-redux";
 
@@ -32,10 +32,10 @@ const mapProps = (state) => {
 const mapDispatch = (dispatch) => {
     return {
         inputText(e) {
-            dispatch(inputPostActionCreator(e.target.value))
+            dispatch(inputPost(e.target.value))
         },
         addPost() {
-            dispatch(addPostActionCreator())
+            dispatch(addPost())
         }
     }
 }

@@ -1,0 +1,51 @@
+.users {
+    padding: 10px;
+}
+
+.pages {
+    margin-bottom: 20px;
+}
+
+.page {
+    cursor: pointer;
+}
+
+.page:hover {
+    color: blue;
+}
+
+.activePage {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.follow {
+    display: block;
+    text-align: center;
+    width: 80px;
+    padding: 0 5px;
+    margin-right: 5px;
+}
+
+.unfollow {
+    display: block;
+    text-align: center;
+    width: 80px;
+    padding: 0 5px;
+    margin-right: 5px;
+}
+
+.logo {
+    width: 40px;
+    margin-right: 5px;
+}
+
+.name {
+    margin-bottom: 5px;
+
+}

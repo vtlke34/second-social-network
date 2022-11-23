@@ -1,36 +1,19 @@
+import api from "../api/api"
+
 const ADD_POST = 'ADD-POST'
 const INPUT_POST = 'INPUT-POST'
 const SET_USER_DATA = 'SET-USER-DATA'
+const SET_AUTH_ID = 'SET-AUTH-ID'
 
 
 const initialState = {
-    userData: {
-        aboutMe: "я круто чувак 1001%",
-        contacts: {
-            facebook: "facebook.com",
-            website: null,
-            vk: "vk.com/dimych",
-            twitter: "https://twitter.com/@sdf",
-            instagram: "instagra.com/sds",
-            youtube: null,
-            github: "github.com",
-            mainLink: null
-        },
-        lookingForAJob: true,
-        lookingForAJobDescription: "не ищу, а дурачусь",
-        fullName: "samurai dimych",
-        userId: 2,
-        photos: {
-            small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
-            large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0",
-        }
-    },
+    userData: null,
     postData: [
         { id: 1, name: 'name', text: 'hello', likeCount: '3' },
         { id: 2, name: 'name', text: 'i am hero', likeCount: '-1' }
     ],
     inputData: '',
-    userID: 2
+    authId: null
 }
 
 
@@ -58,6 +41,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 userData: action.userData
             }
+        case SET_AUTH_ID:
+            return {
+                ...state,
+                authId: action.id
+            }
         default:
             return state
     }
@@ -79,6 +67,25 @@ export const setUserData = (userData) => {
     return {
         type: SET_USER_DATA,
         userData
+    }
+}
+
+const setAuthId = (id) => {
+    return {
+        type: SET_AUTH_ID,
+        id
+    }
+}
+
+export const thunkAuthId = (userID) => {
+    return (dispatch) => {
+        api.getAuthData()
+            .then(data => {
+                dispatch(setAuthId(data.data.id))
+                api.getProfile(userID).then(data => {
+                    dispatch(setUserData(data))
+                })
+            })
     }
 }
 

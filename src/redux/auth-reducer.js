@@ -1,3 +1,5 @@
+import api from "../api/api"
+
 const SET_AUTH_DATA = 'SET-AUTH-DATA'
 
 const initialState = {
@@ -26,6 +28,17 @@ export const setAuthData = (data) => {
     return {
         type: SET_AUTH_DATA,
         data
+    }
+}
+
+export const thunkAuthData = () => {
+    return (dispatch) => {
+        api.getAuthData()
+            .then(response => {
+                if (response.resultCode == 0) {
+                    dispatch(setAuthData(response.data))
+                }
+            })
     }
 }
 

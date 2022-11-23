@@ -1,24 +1,8 @@
+import axios from 'axios'
 import { NavLink } from 'react-router-dom'
+import api from '../../api/api'
 import Preloader from '../Common/Preloader'
 import style from './Users.module.css'
-
-
-// const Users = (props) => {
-//     if (props.usersData.length == 0) {
-//         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => props.setUsers(response.data.items))
-//     }
-//     return (
-//         <ul className={style.users}>
-//             {props.usersData.map(user => <User
-//                 key={user.id}
-//                 usersData={user}
-//                 follow={props.follow}
-//                 unfollow={props.unfollow}
-//                 setUsers={props.setUsers} />)}
-//         </ul>
-//     )
-// }
-
 
 const Users = (props) => {
     const pagesCount = Math.ceil(props.totalCount / props.count)
@@ -33,19 +17,20 @@ const Users = (props) => {
 
     return (
         <div className={style.users}>
+
             <div className={style.pages}>
                 {slicedPages.map(i =>
-                    <span onClick={() => { props.setCurPage(i) }} className={props.page == i ? style.activePage : style.page}>
+                    <span onClick={() => { props.setCurPage(i) }} className={props.page == i ? style.activePage : style.page} key={i}>
                         {i + ' '}
                     </span>)}
             </div>
 
-            {props.isFetching === true ?
-                <Preloader />
+            {props.isFetching === true
+                ? <Preloader />
                 : <ul >
                     {props.usersData.map(user => {
                         return (
-                            <li key={user.key} className={style.user}>
+                            <li key={user.id} className={style.user}>
                                 <NavLink to={`/profile/${user.id}`}>
                                     {
                                         user.photos.small === null
@@ -58,18 +43,25 @@ const Users = (props) => {
                                     <h6 className={style.name}>{user.name}</h6>
                                     {
                                         user.followed
-                                            ? <button className={style.unfollow} onClick={() => props.unfollow(user.id)}>Unfollow</button>
-                                            : <button className={style.follow} onClick={() => props.follow(user.id)}>Follow</button>
+                                            ? <button disabled={props.isFollowing.includes(user.id)} className={style.unfollow} onClick={() => {
+                                                props.unfollowProcess(user.id)
+                                            }}
+                                            >Unfollow</button>
+
+                                            : <button disabled={props.isFollowing.includes(user.id)} className={style.follow} onClick={() => {
+                                                props.followProcess(user.id)
+                                            }}
+                                            >Follow</button>
                                     }
                                 </div>
                             </li>)
                     })
                     }
-                </ul>
+                </ul >
             }
 
 
-        </div>
+        </div >
     )
 }
 

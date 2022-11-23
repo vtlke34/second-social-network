@@ -1,19 +1,21 @@
+import api from "../api/api"
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+const TOGGLE_IS_FOLLOWING = 'TOGGLE-IS-FOLLOWING'
 
 
 const initialState = {
-    usersData: [
-
-    ],
+    usersData: [],
     totalCount: 66,
     count: 10,
     page: 1,
-    isFetching: false
+    isFetching: false,
+    isFollowing: []
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -29,7 +31,6 @@ const usersReducer = (state = initialState, action) => {
                     }
                 })
             }
-
         case UNFOLLOW:
             return {
                 ...state,
@@ -60,6 +61,13 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.isFetching
+            }
+        case TOGGLE_IS_FOLLOWING:
+            return {
+                ...state,
+                isFollowing: action.processFollowing
+                    ? [...state.isFollowing, action.userId]
+                    : state.isFollowing.filter(id => id != action.userId)
             }
         default:
             return state
@@ -105,6 +113,51 @@ export const toggleIsFetching = (isFetching) => {
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching
+    }
+}
+
+export const toggleIsFollowing = (userId, processFollowing) => {
+    return {
+        type: TOGGLE_IS_FOLLOWING,
+        userId,
+        processFollowing
+
+    }
+}
+
+export const getUsers = (count, page) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(page))
+        api.getUsers(count, page)
+            .then(data => {
+                dispatch(setUsers(data.items))
+                dispatch(setTotalCount(data.totalCount))
+                dispatch(toggleIsFetching(false))
+            })
+
+    }
+}
+
+export const followProcess = (id) => {
+    return (dispatch) => {
+        dispatch(toggleIsFollowing(id, true))
+        api.follow(id)
+            .then(() => {
+                dispatch(follow(id))
+                dispatch(toggleIsFollowing(id, false))
+            })
+    }
+}
+
+export const unfollowProcess = (id) => {
+    return (dispatch) => {
+        dispatch(toggleIsFollowing(id, true))
+        api.unfollow(id)
+            .then(() => {
+                dispatch(unfollow(id))
+                dispatch(toggleIsFollowing(id, false))
+            })
     }
 }
 

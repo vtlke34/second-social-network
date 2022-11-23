@@ -1,19 +1,30 @@
 import React from "react";
+import Preloader from "../../Common/Preloader";
 import style from './ProfileInfo.module.css';
+import Status from "./Status";
 
 const ProfileInfo = (props) => {
+    if (!props.userData) {
+        return <Preloader />
+    }
+
     const contacts = props.userData.contacts
     const keys = Object.keys(contacts)
 
     return (
         <div className={style.ProfileInfo}>
-            <img className={style.folder} src='https://images.pexels.com/photos/982263/pexels-photo-982263.jpeg?cs=srgb&dl=pexels-pok-rie-982263.jpg&fm=jpg'></img>
             <div className={style.information}>
-                <img className={style.logo} src={props.userData.photos.large}></img>
+                {
+                    props.userData.photos.large
+                        ? <img className={style.logo} src={props.userData.photos.large} />
+                        : <img className={style.logo} src={'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg'} />
+                }
+
                 <div>
                     <h2 className={style.name}>
                         {props.userData.fullName}
                     </h2>
+                    <Status />
                     <ul className={style.description}>
 
                         {

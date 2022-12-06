@@ -5,6 +5,7 @@ import User from "./User/User";
 import NewMessage from "./NewMessage/NewMessage";
 
 const Messages = (props) => {
+    console.log(props)
 
     const users = props.messagesData.usersData.map((el, index) => <User name={el.name} id={el.id} imgSrc={el.imgSrc} key={index} />)
 
@@ -20,7 +21,10 @@ const Messages = (props) => {
                     {messages}
                 </div>
 
-                <NewMessage inputData={props.messagesData.inputData} dispatch={props.dispatch} />
+                <NewMessage
+                    //  inputData={props.messagesData.inputData} dispatch={props.dispatch}
+                    {...props}
+                />
             </div>
         </div>
     )

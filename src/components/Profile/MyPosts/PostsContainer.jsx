@@ -1,4 +1,5 @@
 import { connect } from "react-redux"
+import { deletePost } from "../../../redux/profile-reducer"
 import Posts from "./Posts"
 
 const mapStateToProps = (state) => {
@@ -7,14 +8,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = () => {
-    return {
-
-    }
-}
-
-// const posts = props.store.getState().profilePage.postData.map((el, index) => <Post name={el.name} likeCount={el.likeCount} text={el.text} key={index} />)
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
+const PostsContainer = connect(mapStateToProps, { deletePost })(Posts)
 
 
 export default PostsContainer

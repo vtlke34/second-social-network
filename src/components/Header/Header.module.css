@@ -2,10 +2,18 @@
     background-color: #282c34;
     height: 50px;
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .login {
-    float: right;
+
     color: white;
+    line-height: 24px;
+}
+
+.exit {
+    color: gray;
+    cursor: pointer;
 }

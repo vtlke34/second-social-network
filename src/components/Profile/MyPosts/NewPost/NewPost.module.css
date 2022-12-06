@@ -4,7 +4,7 @@
 }
 
 .text {
-    display: block;
+    display: inline;
     min-height: 28px;
     width: 100%;
     resize: none;

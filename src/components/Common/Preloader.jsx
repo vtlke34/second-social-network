@@ -2,8 +2,7 @@ import style from './Preloader.module.css'
 
 const Preloader = (props) => {
     return (
-        <svg version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-            viewBox="0 0 100 100" >
+        <svg version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" >
             <circle fill="#808080" stroke="none" cx="6" cy="50" r="6">
                 <animate
                     attributeName="opacity"

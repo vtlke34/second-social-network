@@ -23,14 +23,20 @@ const messagesReducer = (state = initialState, action) => {
                 name: 'name',
                 imgSrc: 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg'
             }
-
-            state.messageData.push(message)
-            state.inputData = ''
-            return state
+            return {
+                ...state,
+                messageData: [
+                    ...state.messageData,
+                    message
+                ],
+                inputData: ''
+            }
 
         case INPUT_MESSAGE:
-            state.inputData = action.inputText
-            return state
+            return {
+                ...state,
+                inputData: action.inputText
+            }
 
         default:
             return state
@@ -39,13 +45,17 @@ const messagesReducer = (state = initialState, action) => {
 
 }
 
-export const addMessageActionCreator = {
-    type: ADD_MESSAGE,
+export const addMessage = () => {
+    return {
+        type: ADD_MESSAGE,
+    }
 }
 
-export const inputMessageActionCreator = {
-    type: INPUT_MESSAGE,
-    inputText: ''
+export const inputMessage = (inputText) => {
+    return {
+        type: INPUT_MESSAGE,
+        inputText
+    }
 }
 
 export default messagesReducer

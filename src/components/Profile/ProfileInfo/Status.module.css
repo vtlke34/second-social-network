@@ -3,5 +3,10 @@
     font-weight: bold;
     padding: 2px;
     background-color: lightgray;
+}
 
+.nostatus {
+    font-weight: normal;
+    color: whitesmoke;
+    font-style: italic;
 }

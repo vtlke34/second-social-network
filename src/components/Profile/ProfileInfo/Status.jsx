@@ -1,46 +1,48 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import style from './Status.module.css'
 
-class Status extends React.Component {
-    state = {
-        editMode: false,
+const Status = (props) => {
+    const [editMode, setEditMode] = useState(false)
+    const [status, setStatus] = useState(props.status || '')
+
+
+    const activateEdit = () => {
+        setEditMode(true)
     }
 
-
-    activateEdit = () => {
-        this.setState({
-            editMode: true
-        })
+    const deactivateEdit = () => {
+        setEditMode(false)
+        props.updateStatusThunk(status)
     }
 
-    deactivateEdit = () => {
-        this.setState({
-            editMode: false
-        })
+    const editStatus = (e) => {
+        setStatus(e.target.value)
     }
 
-    render() {
-        return (
-            <div >
-                {
-                    this.state.editMode
-                        ? <div>
-                            <input onBlur={this.deactivateEdit} autoFocus={true} className={style.status} type="text" defaultValue='status' />
-                        </div>
-
-                        : <div>
-                            <h3 onDoubleClick={this.activateEdit} className={style.status}>status</h3>
-                        </div>
-                }
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
 
 
+    return (
+        <div >
+            {
+                editMode
+                    ? <input onBlur={deactivateEdit} autoFocus={true} className={style.status} type="text" value={status} onChange={editStatus} />
+                    : <div onDoubleClick={activateEdit} className={style.status}>
+                        {
+                            !props.status
+                                ? <p className={style.nostatus}>нет статуса</p>
+                                : props.status
+                        }
+                    </div>
+            }
 
+        </div>
 
-            </div>
-
-        )
-    }
-
+    )
 }
+
+
 
 export default Status

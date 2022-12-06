@@ -1,0 +1,10 @@
+.textarea {
+    width: 100%;
+    display: flex;
+}
+
+.error {
+    padding: 14px;
+    background-color: white;
+    color: red
+}

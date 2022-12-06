@@ -1,4 +1,4 @@
-import api from "../api/api"
+import api, { apiUsers } from "../api/api"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -129,7 +129,7 @@ export const getUsers = (count, page) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        api.getUsers(count, page)
+        apiUsers.getUsers(count, page)
             .then(data => {
                 dispatch(setUsers(data.items))
                 dispatch(setTotalCount(data.totalCount))
@@ -142,7 +142,7 @@ export const getUsers = (count, page) => {
 export const followProcess = (id) => {
     return (dispatch) => {
         dispatch(toggleIsFollowing(id, true))
-        api.follow(id)
+        apiUsers.follow(id)
             .then(() => {
                 dispatch(follow(id))
                 dispatch(toggleIsFollowing(id, false))
@@ -153,7 +153,7 @@ export const followProcess = (id) => {
 export const unfollowProcess = (id) => {
     return (dispatch) => {
         dispatch(toggleIsFollowing(id, true))
-        api.unfollow(id)
+        apiUsers.unfollow(id)
             .then(() => {
                 dispatch(unfollow(id))
                 dispatch(toggleIsFollowing(id, false))

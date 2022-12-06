@@ -1,16 +1,25 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { required } from "../../../../utils/validators/validator";
+import TextareaFormComponent from "../../../Common/TextareaFormComponent";
 import style from './NewPost.module.css'
 
 const NewPost = (props) => {
     return (
-        <div className={style.newPost}>
+        <form onSubmit={props.handleSubmit} className={style.newPost}>
 
-            <textarea className={style.text} placeholder="Введите новый пост..." value={props.value} onChange={props.inputText}></textarea>
+            <Field
+                component={TextareaFormComponent}
+                className={style.text}
+                placeholder="Введите новый пост..."
+                name='newPostText'
+                validate={[required]}
+            />
 
-            <button className={style.button} onClick={props.addPost}>Отправить</button>
+            <button type="submit" className={style.button} >Отправить</button>
 
-        </div>
+        </form>
     )
 }
 
-export default NewPost;
+export default reduxForm({ form: 'newPost' })(NewPost);

@@ -8,8 +8,12 @@ const Header = (props) => {
             <div>
                 {
                     props.isAuth
-                        ? <div className={style.login}>{props.login}</div>
-                        : <a className={style.login} href="https://social-network.samuraijs.com/">Login</a>
+                        ? <div className={style.login}>
+                            <span>{props.login}{'( '}</span>
+                            <span className={style.exit} onClick={props.logoutThunk}>выйти</span>
+                            <span>{' )'}</span>
+                        </div>
+                        : undefined
                 }
 
             </div>

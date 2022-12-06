@@ -1,20 +1,24 @@
 import React from "react";
-import Post from "./Post/Post";
-
 import style from './MyPosts.module.css'
-import NewPostContainer from "./NewPost/NewPostContainer";
 import PostsContainer from "./PostsContainer";
+import NewPost from "./NewPost/NewPost";
+import { addPost } from "../../../redux/profile-reducer";
+import { connect } from "react-redux";
 
 
 
-const MyPosts = () => {
+const MyPosts = (props) => {
+    const onSubmit = (data) => {
+        props.addPost(data.newPostText)
+        data.newPostText = ''
+    }
 
     return (
         <div className='Posts'>
 
             <h2 className={style.title}>My posts</h2>
 
-            <NewPostContainer />
+            <NewPost onSubmit={onSubmit} />
 
             <PostsContainer />
 
@@ -22,4 +26,5 @@ const MyPosts = () => {
     )
 }
 
-export default MyPosts;
+
+export default connect(null, { addPost })(MyPosts);

@@ -1,0 +1,7 @@
+.error {
+    border: 1px solid red;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    color: red;
+    padding: 4px;
+}

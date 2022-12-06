@@ -5,49 +5,59 @@ import UsersContainer from './components/Users/UsersContainer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+import LoginContainer from './components/Login/LoginContainer';
+import MessagesContainer from './components/Messages/MessagesContainer';
+import { connect } from 'react-redux';
+import Preloader from './components/Common/Preloader';
+// import style from './App.module.css'
+import React from 'react';
+import { initialazeApp } from './redux/app-reducer';
 
 
+class App extends React.Component {
+  componentDidMount() {
+    this.props.initialazeApp()
+  }
 
-const App = (props) => {
-  return (
-    <div className="App">
-      <BrowserRouter>
+  render() {
+    return (
+      this.props.initialazed
+        ? <div className='app'>
+          <BrowserRouter>
 
-        <HeaderContainer />
+            <HeaderContainer />
 
-        <div className='flex-container'>
+            <div className='flex-container'>
 
-          <Navbar
-          // sidebarData={props.store.getState().sidebar}
-          >
+              <Navbar />
 
-          </Navbar>
+              <Routes>
 
-          <Routes>
+                <Route path='/profile/' element={<ProfileContainer />}>
+                  <Route path=':userId' element={<ProfileContainer />} />
+                </Route>
 
-            <Route path='/profile/' element={<ProfileContainer />}>
-              <Route path=':userId' element={<ProfileContainer />} />
-            </Route>
+                <Route path='/login' element={<LoginContainer />} />
 
-            <Route path='/login' element={<Login />}>
+                <Route path='/messages/*' element={<MessagesContainer />} />
 
-            </Route>
+                <Route path='/users' element={<UsersContainer />} />
 
-            {/* <Route path='/messages/*' element={<Messages
-              messagesData={props.store.getState().messagesPage}
-              dispatch={props.store.dispatch.bind(props.store)}
-            />}
-            /> */}
+              </Routes>
+            </div>
 
-            <Route path='/users' element={<UsersContainer />} />
-
-          </Routes>
+          </BrowserRouter>
         </div>
+        : <Preloader />
 
-      </BrowserRouter>
-    </div>
-  );
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    initialazed: state.app.initialazed
+  }
+}
+
+export default connect(mapStateToProps, { initialazeApp })(App);

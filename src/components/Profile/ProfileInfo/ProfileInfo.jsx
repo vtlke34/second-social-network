@@ -14,6 +14,7 @@ const ProfileInfo = (props) => {
     return (
         <div className={style.ProfileInfo}>
             <div className={style.information}>
+
                 {
                     props.userData.photos.large
                         ? <img className={style.logo} src={props.userData.photos.large} />
@@ -24,9 +25,8 @@ const ProfileInfo = (props) => {
                     <h2 className={style.name}>
                         {props.userData.fullName}
                     </h2>
-                    <Status />
+                    <Status status={props.status} updateStatusThunk={props.updateStatusThunk} />
                     <ul className={style.description}>
-
                         {
                             keys.map(key => {
                                 return <li key={key} className={style.descriptionItem}>
@@ -36,6 +36,7 @@ const ProfileInfo = (props) => {
                         }
                     </ul>
                 </div>
+
             </div>
         </div >
     )

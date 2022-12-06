@@ -1,19 +1,18 @@
-import api from "../api/api"
+import { apiProfile } from "../api/api"
 
 const ADD_POST = 'ADD-POST'
-const INPUT_POST = 'INPUT-POST'
 const SET_USER_DATA = 'SET-USER-DATA'
-const SET_AUTH_ID = 'SET-AUTH-ID'
+const SET_STATUS = 'SET_STATUS'
+const DELETE_POST = 'DELETE_POST'
 
 
 const initialState = {
     userData: null,
     postData: [
         { id: 1, name: 'name', text: 'hello', likeCount: '3' },
-        { id: 2, name: 'name', text: 'i am hero', likeCount: '-1' }
+        { id: 2, name: 'name', text: 'i am hero', likeCount: '1' }
     ],
-    inputData: '',
-    authId: null
+    status: ''
 }
 
 
@@ -21,46 +20,45 @@ const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             const post = {
-                id: 5,
+                id: Date.now(),
                 name: 'name',
-                text: state.inputData,
-                likeCount: '3'
+                text: action.text,
+                likeCount: '0'
             }
             return {
                 ...state,
                 postData: [...state.postData, post],
-                inputData: ''
             }
-        case INPUT_POST:
+        case DELETE_POST:
             return {
                 ...state,
-                inputData: action.inputText
+                postData: state.postData.filter(post => post.id !== action.postId)
             }
         case SET_USER_DATA:
             return {
                 ...state,
                 userData: action.userData
             }
-        case SET_AUTH_ID:
+        case SET_STATUS:
             return {
                 ...state,
-                authId: action.id
+                status: action.status
             }
         default:
             return state
     }
 }
 
-export const addPost = () => {
+export const addPost = (text) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        text
     }
 }
-
-export const inputPost = (text) => {
+export const deletePost = (postId) => {
     return {
-        type: INPUT_POST,
-        inputText: text
+        type: DELETE_POST,
+        postId
     }
 }
 export const setUserData = (userData) => {
@@ -69,22 +67,38 @@ export const setUserData = (userData) => {
         userData
     }
 }
-
-const setAuthId = (id) => {
+export const setStatus = (status) => {
     return {
-        type: SET_AUTH_ID,
-        id
+        type: SET_STATUS,
+        status
     }
 }
 
-export const thunkAuthId = (userID) => {
+
+export const getUserProfile = (userID) => {
     return (dispatch) => {
-        api.getAuthData()
+        apiProfile.getProfile(userID).then(data => {
+            dispatch(setUserData(data))
+        })
+    }
+}
+export const getStatusThunk = (id) => {
+    return (dispatch) => {
+        apiProfile.getStatus(id)
             .then(data => {
-                dispatch(setAuthId(data.data.id))
-                api.getProfile(userID).then(data => {
-                    dispatch(setUserData(data))
-                })
+                // console.log(data)
+                dispatch(setStatus(data))
+            })
+    }
+}
+export const updateStatusThunk = (status) => {
+    return (dispatch) => {
+        apiProfile.updateStatus(status)
+            .then(response => {
+                // console.log(response)
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatus(status))
+                }
             })
     }
 }

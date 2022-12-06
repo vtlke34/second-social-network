@@ -3,6 +3,10 @@ import style from './Post.module.css'
 
 const Post = (props) => {
 
+    const deletePost = (postId) => {
+        props.deletePost(postId)
+    }
+
     return (
         <li className={style.post}>
 
@@ -14,8 +18,9 @@ const Post = (props) => {
                 {props.postData.text}
             </p>
 
-            <div className={style.likes}>
-                {props.postData.likeCount + ' likes'}
+            <div className={style.buttons}>
+                <button className={style.likes}> {props.postData.likeCount + ' likes'} </button>
+                <button className={style.delete} onClick={() => { deletePost(props.postData.id) }}> delete </button>
             </div>
 
         </li>

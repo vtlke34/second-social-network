@@ -77,9 +77,10 @@ export const setStatus = (status) => {
 
 export const getUserProfile = (userID) => {
     return (dispatch) => {
-        apiProfile.getProfile(userID).then(data => {
-            dispatch(setUserData(data))
-        })
+        apiProfile.getProfile(userID)
+            .then(data => {
+                dispatch(setUserData(data))
+            })
     }
 }
 export const getStatusThunk = (id) => {

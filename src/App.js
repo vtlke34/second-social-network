@@ -1,5 +1,5 @@
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+import NavbarContainer from './components/Navbar/NavbarContainer';
 import Messages from './components/Messages/Messages';
 import UsersContainer from './components/Users/UsersContainer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -29,7 +29,7 @@ class App extends React.Component {
 
             <div className='flex-container'>
 
-              <Navbar />
+              <NavbarContainer />
 
               <Routes>
 

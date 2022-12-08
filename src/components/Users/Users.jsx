@@ -1,6 +1,4 @@
-import axios from 'axios'
 import { NavLink } from 'react-router-dom'
-import api from '../../api/api'
 import Preloader from '../Common/Preloader'
 import style from './Users.module.css'
 

@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import BestFriends from "./BestFriends/BestFriends";
 import style from './Navbar.module.css'
 
-const Navbar = () => {
+const Navbar = (props) => {
     const isActive = ({ isActive }) => (isActive ? style.active : style.link)
 
     return (
@@ -17,7 +17,7 @@ const Navbar = () => {
                 <NavLink to='/users' className={isActive}>Users</NavLink>
             </nav>
 
-            {/* <BestFriends bestFriends={props.sidebarData} /> */}
+            <BestFriends {...props} />
         </div >
     )
 }

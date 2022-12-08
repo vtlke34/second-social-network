@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
@@ -9,20 +9,17 @@ import withRoute from "../../hoc/withRoute";
 import { compose } from "redux";
 import { getAuthID, getPostData, getStatus, getUserData } from "../../redux/selectors";
 
+const ProfileContainer = (props) => {
+    useEffect(() => {
+        const userID = props.param.userId || props.authId
+        props.getUserProfile(userID)
+        props.getStatusThunk(userID)
+    }, [props.param.userId, props.authId])
 
-class ProfileContainer extends React.Component {
-    componentDidMount() {
-        const userID = this.props.param.userId || this.props.authId
-        this.props.getUserProfile(userID)
-        this.props.getStatusThunk(userID)
-    }
-
-    render() {
-        return <div className={style.Profile}>
-            <ProfileInfo userData={this.props.userData} status={this.props.status} updateStatusThunk={this.props.updateStatusThunk} />
-            <MyPosts store={this.props.store} />
-        </div>
-    }
+    return <div className={style.Profile}>
+        <ProfileInfo userData={props.userData} status={props.status} updateStatusThunk={props.updateStatusThunk} />
+        <MyPosts store={props.store} />
+    </div>
 }
 
 const mapStatetoProps = (state) => {

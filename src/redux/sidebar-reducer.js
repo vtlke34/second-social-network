@@ -1,13 +1,39 @@
+import { apiUsers } from "../api/api"
+
+const GET_FRIENDS = 'GET_FRIENDS'
+
 const initialState = {
-    bestFriendsData: [
-        { id: 1, name: 'lera', imgSrc: 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg' },
-        { id: 2, name: 'alex', imgSrc: 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg' },
-        { id: 3, name: 'vlad', imgSrc: 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg' }
-    ]
+    friendsData: []
 }
 
 const sidebarReducer = (state = initialState, action) => {
-    return state
+    switch (action.type) {
+        case GET_FRIENDS:
+            return {
+                ...state,
+                friendsData: [...action.friends]
+            }
+        default:
+            return state
+    }
 }
+
+const getFriends = (friends) => {
+    return {
+        type: GET_FRIENDS,
+        friends
+    }
+}
+
+export const getFriendsThunk = () => {
+    return (dispatch) => {
+        apiUsers.getFriends()
+            .then((data) => {
+                dispatch(getFriends(data))
+                console.log(data)
+            })
+    }
+}
+
 
 export default sidebarReducer

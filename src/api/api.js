@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const instance = instance.create({ withCredentials: true, headers: { 'API-KEY': '6b0e5207-c540-48b8-bc3a-78eeb677981a' } })
+const instance = axios.create({ withCredentials: true, headers: { 'API-KEY': '6b0e5207-c540-48b8-bc3a-78eeb677981a' } })
 
 export const apiUsers = {
     getUsers(count = 10, page = 1) {

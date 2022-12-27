@@ -13,8 +13,11 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 initialazed: true
             }
+        default:
+            return state
     }
-    return state
+
+
 }
 
 export const toggleInitialazed = () => {

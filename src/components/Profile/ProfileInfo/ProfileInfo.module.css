@@ -1,4 +1,4 @@
-.information {
+.ProfileInfo {
     display: flex;
     margin-bottom: 10px;
 }
@@ -11,9 +11,36 @@
 }
 
 .name {
+    margin-bottom: 5px;
+    font-size: 24px;
+    /* font-weight: bold; */
+}
+
+.information {
+    display: flex;
     margin-bottom: 10px;
 }
 
-.descriptionItem {
+.edit {
+    margin-left: 5px;
+    font-size: 20px;
+    opacity: 20%;
+    cursor: pointer;
+}
+
+.edit:hover {
+    opacity: 100%;
+}
+
+.contactsItem {
     margin-bottom: 5px;
+}
+
+.title {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.descItem {
+    margin-bottom: 10px;
 }

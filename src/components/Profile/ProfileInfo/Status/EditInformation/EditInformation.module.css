@@ -1,0 +1,29 @@
+.title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.error {
+    color: red
+}
+
+.input {
+    /* background-color: #d3d3d3; */
+    padding: 0 5px;
+}
+
+.save {
+    padding: 6px 32px;
+    margin-top: 10px;
+    background-color: mediumseagreen;
+}
+
+.save:disabled {
+    background-color: darkslategray;
+    color: darkgrey
+}

@@ -8,21 +8,26 @@ import store from './redux/redux-store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const rerender = () => {
+root.render(
+    <Provider store={store} >
+        <App />
+    </Provider >
+);
 
-    root.render(
-        <Provider store={store} >
-            <App />
-        </Provider >
 
-    );
-}
+// const rerender = () => {
+//     root.render(
+//         <Provider store={store} >
+//             <App />
+//         </Provider >
+//     );
+// }
 
-rerender(store)
+// rerender(store)
 
-store.subscribe(() => {
-    rerender(store)
-})
+// store.subscribe(() => {
+//     rerender(store)
+// })
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

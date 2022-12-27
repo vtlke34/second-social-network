@@ -25,15 +25,11 @@ const getFriends = (friends) => {
     }
 }
 
-export const getFriendsThunk = () => {
-    return (dispatch) => {
-        apiUsers.getFriends()
-            .then((data) => {
-                dispatch(getFriends(data))
-                console.log(data)
-            })
+export const getFriendsThunk = () => async (dispatch) => {
+    const response = await apiUsers.getFriends()
+    if (!response.error) {
+        dispatch(getFriends(response.items))
     }
 }
-
 
 export default sidebarReducer

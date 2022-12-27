@@ -37,7 +37,7 @@ const profileReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                userData: action.userData
+                userData: { ...state.userData, ...action.userData }
             }
         case SET_STATUS:
             return {
@@ -81,6 +81,12 @@ export const getUserProfile = (userID) => {
             .then(data => {
                 dispatch(setUserData(data))
             })
+    }
+}
+export const updateProfileThunk = (data) => async (dispatch) => {
+    const response = await apiProfile.updateProfile(data)
+    if (response.resultCode === 0) {
+        dispatch(setUserData(data))
     }
 }
 export const getStatusThunk = (id) => {

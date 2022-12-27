@@ -13,8 +13,7 @@
 
 .likes {
     background-color: #c0c0c0;
-    width: 100px;
-    padding: 2px;
+    padding: 6px 32px;
     text-align: center;
 }
 
@@ -25,8 +24,7 @@
 .delete {
     background-color: indianred;
     color: whitesmoke;
-    width: 100px;
-    padding: 2px;
+    padding: 6px 32px;
     text-align: center;
 }
 

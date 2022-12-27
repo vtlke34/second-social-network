@@ -70,44 +70,32 @@ export const unsetWarning = () => {
     }
 }
 
-export const thunkAuthData = () => {
-    return (dispatch) => {
-        return apiAuth.getAuthData()
-            .then(response => {
-                if (response.resultCode == 0) {
-                    dispatch(setAuthData(response.data))
-                }
-            })
+export const thunkAuthData = () => async (dispatch) => {
+    const response = await apiAuth.getAuthData()
+    if (response.resultCode === 0) {
+        dispatch(setAuthData(response.data))
     }
 }
 
-export const loginThunk = (data) => {
-    return (dispatch) => {
-        apiAuth.login(data)
-            .then(data => {
-                console.log(data)
-                if (data.resultCode === 0) {
-                    dispatch(unsetWarning())
-                    apiAuth.getAuthData()
-                        .then(response => {
-                            if (response.resultCode == 0) {
-                                dispatch(setAuthData(response.data))
-                            }
-                        })
-                } else {
-                    dispatch(setWarning())
-                }
-            })
+
+export const loginThunk = (data) => async (dispatch) => {
+    const response = await apiAuth.login(data)
+    if (response.resultCode === 0) {
+        dispatch(unsetWarning())
+        const response = await apiAuth.getAuthData()
+        if (response.resultCode === 0) {
+            dispatch(setAuthData(response.data))
+        }
+    } else {
+        dispatch(setWarning())
     }
 }
 
-export const logoutThunk = () => {
-    return (dispatch) => {
-        apiAuth.logout()
-            .then(() => {
-                dispatch(unsetAuthData())
-            })
 
+export const logoutThunk = () => async (dispatch) => {
+    const response = await apiAuth.logout()
+    if (response.resultCode === 0) {
+        dispatch(unsetAuthData())
     }
 }
 

@@ -9,7 +9,7 @@ export const apiUsers = {
     },
     getFriends(friend = true) {
         return instance.get(`https://social-network.samuraijs.com/api/1.0/users?friend=${friend}`)
-            .then(data => data.data.items)
+            .then(data => data.data)
     },
     follow(id) {
         return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {})
@@ -31,7 +31,7 @@ export const apiAuth = {
     },
     logout() {
         return instance.post('https://social-network.samuraijs.com/api/1.0/auth/logout', {})
-            .then(response => console.log(response))
+            .then(response => response.data)
     }
 }
 
@@ -39,6 +39,10 @@ export const apiAuth = {
 export const apiProfile = {
     getProfile(userID) {
         return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
+            .then(response => response.data)
+    },
+    updateProfile(data) {
+        return instance.put(`https://social-network.samuraijs.com/api/1.0/profile/`, { ...data, "fullName": "vitalik_obuh" })
             .then(response => response.data)
     },
     getStatus(userId) {

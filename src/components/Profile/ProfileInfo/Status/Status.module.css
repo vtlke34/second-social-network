@@ -1,8 +1,8 @@
 .status {
     margin-bottom: 15px;
-    font-weight: bold;
     padding: 2px;
     background-color: lightgray;
+    cursor: pointer;
 }
 
 .nostatus {

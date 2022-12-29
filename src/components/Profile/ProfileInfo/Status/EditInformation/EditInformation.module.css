@@ -21,6 +21,7 @@
     padding: 6px 32px;
     margin-top: 10px;
     background-color: mediumseagreen;
+    border-radius: 3px;
 }
 
 .save:disabled {

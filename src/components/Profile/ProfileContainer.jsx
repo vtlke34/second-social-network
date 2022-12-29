@@ -3,7 +3,7 @@ import style from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import { connect } from "react-redux";
-import { getUserProfile, getStatusThunk, updateStatusThunk, updateProfileThunk } from "../../redux/profile-reducer";
+import { getUserProfile, getStatusThunk, updateStatusThunk, updateProfileThunk, updatePhotoThunk } from "../../redux/profile-reducer";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
 import withRoute from "../../hoc/withRoute";
 import { compose } from "redux";
@@ -17,7 +17,13 @@ const ProfileContainer = (props) => {
     }, [props.param.userId, props.authId])
 
     return <div className={style.Profile}>
-        <ProfileInfo userData={props.userData} status={props.status} updateStatusThunk={props.updateStatusThunk} updateProfileThunk={props.updateProfileThunk} />
+        <ProfileInfo
+            userData={props.userData}
+            status={props.status}
+            updateStatusThunk={props.updateStatusThunk}
+            updateProfileThunk={props.updateProfileThunk}
+            updatePhotoThunk={props.updatePhotoThunk} />
+
         <MyPosts store={props.store} />
     </div>
 }
@@ -34,7 +40,7 @@ const mapStatetoProps = (state) => {
 export default compose(
     withAuthRedirect,
     withRoute,
-    connect(mapStatetoProps, { getUserProfile, getStatusThunk, updateStatusThunk, updateProfileThunk }),
+    connect(mapStatetoProps, { getUserProfile, getStatusThunk, updateStatusThunk, updateProfileThunk, updatePhotoThunk }),
 )(
     ProfileContainer
 )

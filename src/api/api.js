@@ -51,5 +51,10 @@ export const apiProfile = {
     },
     updateStatus(status) {
         return instance.put('https://social-network.samuraijs.com/api/1.0/profile/status', { status })
+    },
+    updatePhoto(photo) {
+        return instance.put('https://social-network.samuraijs.com/api/1.0/profile/photo', { photo }, { headers: { 'Content-Type': 'multipart/form-data' } })
+            .then(response => response.data)
+
     }
 }

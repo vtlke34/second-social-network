@@ -3,9 +3,14 @@ import Preloader from "../../Common/Preloader";
 import style from './ProfileInfo.module.css';
 import EditInfotmation from "./Status/EditInformation/EditInfotmation";
 import Status from "./Status/Status";
+import { useForm } from "react-hook-form";
+import Modal from "../../Common/Modal/Modal";
 
-const ProfileInfo = ({ userData, status, updateStatusThunk, updateProfileThunk }) => {
+const ProfileInfo = ({ userData, status, updateStatusThunk, updateProfileThunk, updatePhotoThunk }) => {
     const [editMode, setEditMode] = useState(false)
+    const [updatePhoto, setUpdatePhoto] = useState(false)
+    const [modal, setModal] = useState(false)
+    const { register, handleSubmit, watch } = useForm({ mode: 'onBlur' })
 
     if (!userData) {
         return <Preloader />
@@ -13,13 +18,62 @@ const ProfileInfo = ({ userData, status, updateStatusThunk, updateProfileThunk }
 
     const contacts = userData.contacts
     const keys = Object.keys(contacts)
+    const watchPhoto = watch('file')
+
+    const onSubmit = (data) => {
+        updatePhotoThunk(data.file[0])
+        setUpdatePhoto(false)
+    }
 
     return (
         <div className={style.ProfileInfo}>
-            {userData.photos.large
-                ? <img className={style.logo} alt='logo' src={userData.photos.large} />
-                : <img className={style.logo} alt='logo' src={'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg'} />
+            {!updatePhoto
+                ? <div className={style.leftContainer}>
+                    {userData.photos.small
+                        ? <img
+                            className={style.logo}
+                            alt='logo'
+                            src={userData.photos.small}
+                            onClick={() => { setModal(true) }}
+                        />
+                        : <img
+                            className={style.logo}
+                            alt='logo'
+                            src={'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg'}
+                        />
+                    }
+                    <button className={style.updPhoto} onClick={() => setUpdatePhoto(true)}>Update photo</button>
+
+                    <Modal modal={modal} setModal={setModal}>
+                        <img
+                            alt='logo'
+                            src={userData.photos.large}
+                        />
+                    </Modal>
+                </div>
+                : <div className={style.leftContainer}>
+                    <form onSubmit={handleSubmit(onSubmit)} >
+                        <label className={style.chooseBtn}>
+                            <p>Choose</p>
+                            <input
+                                type="file"
+                                className={style.file}
+                                {...register("file")}
+                            />
+
+                        </label>
+
+                        {watchPhoto && <p className={style.chooseFile}>{watchPhoto[0].name}</p>}
+
+                        <input
+                            value='Send'
+                            type="submit"
+                            className={style.updPhoto} />
+                    </form>
+                </div>
             }
+
+
 
             <div>
                 <h2 className={style.name}>

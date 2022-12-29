@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST'
 const SET_USER_DATA = 'SET-USER-DATA'
 const SET_STATUS = 'SET_STATUS'
 const DELETE_POST = 'DELETE_POST'
+const UPDATE_PHOTO_SUCCESS = 'UPDATE_PHOTO_SUCCESS'
 
 
 const initialState = {
@@ -44,6 +45,14 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case UPDATE_PHOTO_SUCCESS:
+            return {
+                ...state,
+                userData: {
+                    ...state.userData,
+                    photos: action.photos
+                }
+            }
         default:
             return state
     }
@@ -71,6 +80,12 @@ export const setStatus = (status) => {
     return {
         type: SET_STATUS,
         status
+    }
+}
+export const setPhotoSuccess = (photos) => {
+    return {
+        type: UPDATE_PHOTO_SUCCESS,
+        photos
     }
 }
 
@@ -109,5 +124,12 @@ export const updateStatusThunk = (status) => {
             })
     }
 }
+export const updatePhotoThunk = (photo) => async (dispatch) => {
+    const response = await apiProfile.updatePhoto(photo)
+    if (response.resultCode === 0) {
+        dispatch(setPhotoSuccess(response.data.photos))
+    }
+}
+
 
 export default profileReducer
